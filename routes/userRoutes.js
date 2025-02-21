@@ -5,6 +5,7 @@ import bcrypt from "bcrypt"
 const router = express.Router()
 
 router.get("/user3", async (req, res) => {
+    if (req.session.user) return res.send("not logged in")
     console.log(req.sessionID)
     console.log(req.session.user)
     const getTheUserDetails = await User.findOne({ username: req.session.user })
@@ -13,6 +14,7 @@ router.get("/user3", async (req, res) => {
 })
 
 router.get("/user4", (req, res) => {
+    if (req.session.user) return res.send("not logged in")
     console.log(req.session.cart)
     return res.send(req.session.cart)
 })
@@ -45,6 +47,7 @@ router.post("/user", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
+        if (req.session.user) return res.send("already logged in")
         let { username, password } = req.body
         let user = await User.findOne({ username })
         let matchPassword = await bcrypt.compare(password, user.password)

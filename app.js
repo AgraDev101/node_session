@@ -22,7 +22,7 @@ app.use("/v1", userRoutes)
 
 const connectDB = async () => {
     try {
-        let password = ""
+
         let connect = await mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.zefg1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
         console.log("database connected")   
     } catch (error) {
