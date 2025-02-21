@@ -72,7 +72,7 @@ router.get("/logout", (req, res) => {
 
 router.get("/cart", (req, res) => {
     if (!req.session.user) {
-        res.send("not logged in")
+        return res.send("not logged in")
     }
     console.log(req.body)
     req.session.cart = req.body
